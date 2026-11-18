@@ -65,9 +65,12 @@ if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').m
         "@type": "PostalAddress",
         "addressLocality": "Franklin",
         "addressRegion": "IN",
+        "postalCode": "46131",
         "addressCountry": "US"
       },
       "founder": {"@id": "{{DOMAIN}}/#collin"},
+      /*IF:BOOKING_URL*/"potentialAction": {"@type": "ReserveAction", "name": "Book a free 30-minute intro call", "target": "{{BOOKING_URL}}"},
+      /*ENDIF:BOOKING_URL*/
       "areaServed": [
         {"@type": "City", "name": "Franklin", "containedInPlace": {"@type": "State", "name": "Indiana"}},
         {"@type": "City", "name": "Greenwood", "containedInPlace": {"@type": "State", "name": "Indiana"}},
@@ -210,10 +213,13 @@ if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').m
       <a href="#automate">What can we automate?</a>
       <a href="#services">Services</a>
       <a href="#bot-team">Crew</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/areas-served/">Areas</a>
       <a href="#about">About</a>
-      <a href="#faq">FAQ</a>
+      <a href="/faq/">FAQ</a>
     </nav>
-    <a class="btn btn-sm magnet" href="tel:{{PHONE_TEL}}"><span class="hide-sm">Call or text </span>{{PHONE}}</a>
+    <a class="btn btn-ghost btn-sm magnet hide-md" href="tel:{{PHONE_TEL}}">{{PHONE}}</a>
+    <!--IF:BOOKING_URL--><a class="btn btn-sm magnet" href="{{BOOKING_URL}}" rel="noopener">Book<span class="hide-sm"> a free</span> intro call</a><!--ENDIF:BOOKING_URL-->
   </div>
 </header>
 
@@ -224,9 +230,9 @@ if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').m
       <h1 id="hero-h" class="display"><span class="eyebrow h1-eyebrow">AI consultant in Franklin, Greenwood &amp; Indianapolis</span><span class="line">AI, set up</span><span class="line accent">for your business</span></h1>
       <p class="sub">I'm Collin Hill. I build AI bots that do the repetitive computer work at real estate teams, field and home-services operators, and local businesses with 5–50 people, and a person on your team approves anything that matters.</p>
       <div class="ctas">
-        <a class="btn btn-lg magnet" href="tel:{{PHONE_TEL}}">Call {{PHONE}}</a>
+        <!--IF:BOOKING_URL--><a class="btn btn-lg magnet" href="{{BOOKING_URL}}" rel="noopener">Book a free 30-minute intro call</a><!--ENDIF:BOOKING_URL-->
+        <a class="btn btn-ghost btn-lg magnet" href="tel:{{PHONE_TEL}}">Call {{PHONE}}</a>
         <a class="btn btn-ghost btn-lg magnet sms-only" href="sms:{{PHONE_TEL}}">Text me</a>
-        <!--IF:BOOKING_URL--><a class="btn btn-ghost btn-lg magnet" href="{{BOOKING_URL}}">Book a free intro call</a><!--ENDIF:BOOKING_URL-->
       </div>
       <!--IF:FORM_ENDPOINT--><p class="fine"><a class="note-link" href="#lead">Or send a quick note</a></p><!--ENDIF:FORM_ENDPOINT-->
       <p class="fine">Start with a free 30-minute intro call. In person {{IN_PERSON}}, remote anywhere.</p>
@@ -314,21 +320,25 @@ Thanks!</p></div>
         <p class="price">{{PRICE_AUDIT}}<small>fixed price</small></p>
         <ul><li>On-site or remote review of your workflows</li><li>Prioritized list of AI opportunities</li><li>Tool recommendations and a written roadmap</li></ul>
         <p class="best">Best first step for most businesses</p>
+        <a class="more" href="/ai-audit/">Learn more about the AI Audit →</a>
       </article>
       <article class="card">
         <h3>Setup Sprint</h3>
         <p class="price">From {{PRICE_SPRINT}}<small>scoped after the audit</small></p>
         <ul><li>Build and launch 1–2 high-value automations</li><li>Connected to the tools you already use</li><li>Team training and documentation</li></ul>
+        <a class="more" href="/pricing/">Learn more: Setup Sprint pricing →</a>
       </article>
       <article class="card">
         <h3>Process Implementation</h3>
         <p class="price">From {{PRICE_PROCESS}}<small>scoped after the audit</small></p>
         <ul><li>End-to-end redesign of a core process</li><li>AI agents and integrations built and tested</li><li>Rollout support with your team</li></ul>
+        <a class="more" href="/pricing/">Learn more: Process Implementation pricing →</a>
       </article>
       <article class="card">
         <h3>Monthly Retainer</h3>
         <p class="price">{{PRICE_RETAINER}}/mo<small>up to {{RETAINER_HOURS}} a month · month to month</small></p>
         <ul><li>Ongoing improvements and new automations</li><li>Monitoring and fixes</li><li>Priority access to me</li></ul>
+        <a class="more" href="/pricing/">Learn more: Monthly Retainer pricing →</a>
       </article>
     </div>
   </div>
@@ -380,7 +390,8 @@ Thanks!</p></div>
     <p class="trust">Nothing sensitive happens without your approval. Every Crew bot works in accounts you own, keeps a full activity log, and can be paused by your team at any time.</p>
     <p class="fine">Built by Collin Hill, with TESCO experience and 2–3 years of hands-on work with AI and building efficient pipelines.</p>
     <p class="fine">Your Crew's AI workspace and software subscriptions are billed to you directly by those providers.</p>
-    <div class="ctas"><a class="btn magnet" href="tel:{{PHONE_TEL}}">Call or text {{PHONE}}</a><!--IF:BOOKING_URL--><a class="btn btn-ghost magnet" href="{{BOOKING_URL}}">Book a free 30-minute intro</a><!--ENDIF:BOOKING_URL--><!--IF:SHOW_EMAIL--><a class="btn btn-ghost magnet" href="mailto:{{EMAIL}}">Email {{EMAIL}}</a><!--ENDIF:SHOW_EMAIL--><!--IF:FORM_ENDPOINT--><a class="note-link" href="#lead">Or send a quick note</a><!--ENDIF:FORM_ENDPOINT--></div>
+    <p class="fine"><a class="more" href="/ai-crew/">Learn more about the Crew →</a></p>
+    <div class="ctas"><!--IF:BOOKING_URL--><a class="btn magnet" href="{{BOOKING_URL}}" rel="noopener">Book a free 30-minute intro call</a><!--ENDIF:BOOKING_URL--><a class="btn btn-ghost magnet" href="tel:{{PHONE_TEL}}">Call or text {{PHONE}}</a><!--IF:SHOW_EMAIL--><a class="btn btn-ghost magnet" href="mailto:{{EMAIL}}">Email {{EMAIL}}</a><!--ENDIF:SHOW_EMAIL--><!--IF:FORM_ENDPOINT--><a class="note-link" href="#lead">Or send a quick note</a><!--ENDIF:FORM_ENDPOINT--></div>
     </div>
   </div>
 </section>
@@ -399,6 +410,7 @@ Thanks!</p></div>
       </ul>
       <p class="price-line">Starts with a {{PRICE_AUDIT}} AI Audit; we scope hardware and setup, then quote.</p>
       <p class="fine">It isn't the right fit for every business. The review tells us honestly whether it makes sense for yours.</p>
+      <p class="fine"><a class="more" href="/private-local-ai/">Learn more about private local AI →</a></p>
     </div>
     <div class="rack" aria-hidden="true">
       <div class="rack-box"><span class="led"></span><span class="led"></span><span class="led"></span><b>Your office</b></div>
@@ -454,6 +466,7 @@ Thanks!</p></div>
     <details><summary>What does the retainer include?</summary><p>Up to {{RETAINER_HOURS}} a month of improvements, fixes and new automations for {{PRICE_RETAINER}}/mo, month to month, with a published cap so there are no surprises.</p></details>
     <details><summary>Are the hours in the automation map real?</summary><p>No. They're illustrative examples for a typical small team, not promises or measured results. The AI Audit gives you real numbers for your business.</p></details>
     <details><summary>Where should I start?</summary><p>Most businesses start with the AI Audit. Its roadmap tells you what's worth building. If billing work is the pain, the 30-day bot pilot is a good first step too.</p></details>
+    <p class="faq-more"><a class="more" href="/faq/">More questions →</a></p>
   </div>
 </section>
 
@@ -463,9 +476,9 @@ Thanks!</p></div>
     <p class="lead">Call or text to set up your free 30-minute intro call. Tell me a little about your business and what's eating your team's time.</p>
     <a class="phone-big" href="tel:{{PHONE_TEL}}">{{PHONE}}</a>
     <div class="ctas center">
-      <a class="btn btn-lg magnet" href="tel:{{PHONE_TEL}}">Call</a>
+      <!--IF:BOOKING_URL--><a class="btn btn-lg magnet" href="{{BOOKING_URL}}" rel="noopener">Book a free 30-minute intro call</a><!--ENDIF:BOOKING_URL-->
+      <a class="btn btn-lg btn-ghost magnet" href="tel:{{PHONE_TEL}}">Call</a>
       <a class="btn btn-lg btn-ghost magnet sms-only" href="sms:{{PHONE_TEL}}">Text</a>
-      <!--IF:BOOKING_URL--><a class="btn btn-lg btn-ghost magnet" href="{{BOOKING_URL}}">Book a free intro call</a><!--ENDIF:BOOKING_URL-->
     </div>
     <!--IF:SHOW_EMAIL--><p>Or email <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p><!--ENDIF:SHOW_EMAIL-->
     <!--IF:FORM_ENDPOINT-->
@@ -529,12 +542,7 @@ Thanks!</p></div>
 </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <p><strong>{{BUSINESS_NAME}}</strong> · Franklin, Indiana · <a href="tel:{{PHONE_TEL}}">{{PHONE}}</a><!--IF:SHOW_EMAIL--> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a><!--ENDIF:SHOW_EMAIL--></p>
-    <p class="fine">© 2026 {{BUSINESS_NAME}}</p>
-  </div>
-</footer>
+{{SITE_FOOTER}}
 <script id="cfg" type="application/json">{"phone":"{{PHONE}}","tel":"{{PHONE_TEL}}","audit":"{{PRICE_AUDIT}}","sprint":"{{PRICE_SPRINT}}","process":"{{PRICE_PROCESS}}","retainer":"{{PRICE_RETAINER}}","hours":"{{RETAINER_HOURS}}","pilot":"{{PRICE_PILOT}}"}</script>
 <script id="auto" type="application/json">{{AUTO_JSON}}</script>
 <script type="module" src="/assets/main.js"></script>

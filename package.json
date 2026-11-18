@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "python3 build.py && vite build",
-    "dev": "python3 build.py && vite --host --port 5173 --config vite.config.js"
+    "dev": "python3 build.py && vite --host --port 5173 --config vite.config.js",
+    "build:preview": "npm run build && python3 scripts/make_preview.py"
   },
   "dependencies": {
     "gsap": "^3.15.1",

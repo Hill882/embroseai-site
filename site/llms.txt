@@ -1,0 +1,47 @@
+# Embrose AI
+
+> Embrose AI is a hands-on AI consulting and automation practice based in Franklin, Indiana. Founder Collin Hill sets up AI bots (called "the Crew") and automations that take repetitive computer work off small teams, with a person approving anything sensitive. Clients are real estate teams, field, construction and home-services companies, and local businesses with 5–50 people in Franklin, Greenwood, Indianapolis and Johnson County, Indiana. He works in person within about an hour of Franklin and remotely anywhere.
+
+Key facts:
+
+- Business name: Embrose AI
+- Base: Franklin, Indiana (service-area business, no public storefront)
+- In person: Franklin, Greenwood, Indianapolis (especially the south side), all of Johnson County, and within about an hour of Franklin. Remote anywhere.
+- Phone (call or text): (317) 777-1512
+- Email: hello@embroseai.com
+- Hours: Monday–Friday, 9 a.m.–5 p.m. Eastern
+- Founder: Collin Hill, a Project Manager at TESCO with 2–3 years building AI pipelines
+- First step: a free 30-minute intro call. Book at https://calendar.google.com/calendar/appointments/schedules/AcZssZ0yawSmJtpIgeIMA0zk1iymCS4O4r5nwUGeA4RFV1U0QBN63m-uNV39AHM0bZLHATqr3UThmH34
+- Published prices (USD):
+  - AI Audit $1,500 fixed
+  - Setup Sprint from $3,500
+  - Process Implementation from $7,500
+  - Monthly Retainer $1,500/month (up to 10 hours)
+  - Embrose Crew 30-Day Pilot $1,500
+  - Crew Starter $3,500 setup + $750/month
+  - Crew Full Team from $7,500 setup + $1,500/month
+  - Private/local AI setup is quoted after the AI Audit, with hardware billed separately.
+- What it is not: Embrose AI does not offer accounting, bookkeeping, tax or CPA services. Its bots handle back-office tasks such as invoice prep, payment matching and follow-ups, alongside a client's existing staff.
+
+## Services
+
+- [Home: AI consulting in Franklin, Greenwood and Indianapolis](https://embroseai.com/): Overview of services, a sample-data demo of a Crew bot, pricing, the founder and FAQs
+- [AI Audit](https://embroseai.com/ai-audit/): A $1,500 fixed-price workflow review with a written AI roadmap
+- [The Embrose Crew: AI bots for back-office work](https://embroseai.com/ai-crew/): Bots for payment matching, invoice prep, follow-ups and inbox triage, starting with a $1,500 30-day pilot
+- [Private local AI setup and AI server builds](https://embroseai.com/private-local-ai/): AI models that run on hardware the client owns, so data stays in-house
+- [Pricing](https://embroseai.com/pricing/): Every published price in one place
+
+## Industries
+
+- [AI for real estate teams](https://embroseai.com/industries/real-estate-teams/): Portal lead replies, CRM cleanup, listing drafts and transaction deadline reminders
+- [AI for field, construction and home-services companies](https://embroseai.com/industries/field-and-home-services/): Job intake, daily field reports, scheduling, quote drafts and invoice follow-ups
+
+## Areas and contact
+
+- [Areas served](https://embroseai.com/areas-served/): Where in-person work happens around Franklin, Greenwood, Indianapolis and Johnson County
+- [FAQ](https://embroseai.com/faq/): Plain answers on cost, data privacy, what the bots do and how to get started
+- [Book a free 30-minute intro call](https://calendar.google.com/calendar/appointments/schedules/AcZssZ0yawSmJtpIgeIMA0zk1iymCS4O4r5nwUGeA4RFV1U0QBN63m-uNV39AHM0bZLHATqr3UThmH34): Google Calendar booking page
+
+## Optional
+
+- [Sitemap](https://embroseai.com/sitemap.xml)
