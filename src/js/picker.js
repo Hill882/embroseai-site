@@ -121,7 +121,7 @@ export function initPicker() {
     const ctas = el('div', 'ctas');
     const call = el('a', 'btn magnet', 'Call ' + cfg.phone); call.href = 'tel:' + cfg.tel;
     const msg = 'Hi Collin, I saw the Embrose AI automation map. ' + data[ind].name + ': ' + sel.map((t) => t.job).join('; ') + '. Can we set up a free intro call?';
-    const text = el('a', 'btn btn-ghost magnet', 'Text me this map');
+    const text = el('a', 'btn btn-ghost magnet sms-only', 'Text me this map');
     text.href = 'sms:' + cfg.tel + '?&body=' + encodeURIComponent(msg);
     ctas.appendChild(call); ctas.appendChild(text);
     map.appendChild(ctas);

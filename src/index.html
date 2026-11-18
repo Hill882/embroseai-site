@@ -225,7 +225,7 @@ if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').m
       <p class="sub">I'm Collin Hill. I build AI bots that do the repetitive computer work at real estate teams, field and home-services operators, and local businesses with 5–50 people, and a person on your team approves anything that matters.</p>
       <div class="ctas">
         <a class="btn btn-lg magnet" href="tel:{{PHONE_TEL}}">Call {{PHONE}}</a>
-        <a class="btn btn-ghost btn-lg magnet" href="sms:{{PHONE_TEL}}">Text me</a>
+        <a class="btn btn-ghost btn-lg magnet sms-only" href="sms:{{PHONE_TEL}}">Text me</a>
         <!--IF:BOOKING_URL--><a class="btn btn-ghost btn-lg magnet" href="{{BOOKING_URL}}">Book a free intro call</a><!--ENDIF:BOOKING_URL-->
       </div>
       <!--IF:FORM_ENDPOINT--><p class="fine"><a class="note-link" href="#lead">Or send a quick note</a></p><!--ENDIF:FORM_ENDPOINT-->
@@ -464,7 +464,7 @@ Thanks!</p></div>
     <a class="phone-big" href="tel:{{PHONE_TEL}}">{{PHONE}}</a>
     <div class="ctas center">
       <a class="btn btn-lg magnet" href="tel:{{PHONE_TEL}}">Call</a>
-      <a class="btn btn-lg btn-ghost magnet" href="sms:{{PHONE_TEL}}">Text</a>
+      <a class="btn btn-lg btn-ghost magnet sms-only" href="sms:{{PHONE_TEL}}">Text</a>
       <!--IF:BOOKING_URL--><a class="btn btn-lg btn-ghost magnet" href="{{BOOKING_URL}}">Book a free intro call</a><!--ENDIF:BOOKING_URL-->
     </div>
     <!--IF:SHOW_EMAIL--><p>Or email <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p><!--ENDIF:SHOW_EMAIL-->

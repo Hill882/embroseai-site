@@ -262,6 +262,9 @@ body.has-cursor,body.has-cursor a,body.has-cursor button{cursor:none}
   .demo{padding:14px;border-radius:14px}
   .hold-btn{width:96px;height:96px}
 }
+@media(hover:hover) and (pointer:fine){
+  .sms-only{display:none!important}
+}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
