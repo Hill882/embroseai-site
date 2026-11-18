@@ -9,10 +9,11 @@ export function initMobileStage(canvas) {
   if (!ctx) return { setTicket() {}, dispose() {} };
 
   const dprCap = window.devicePixelRatio > 2 ? 1.25 : Math.min(window.devicePixelRatio || 1, 1.5);
-  let w = 0, h = 0, running = true, ticket = null;
+  let w = 0, h = 0, running = true, paused = false, ticket = null;
   let px = 0, py = 0; // smoothed pointer / tilt
   let tx = 0, ty = 0;
   let camZ = 0;
+  let idleTimer = null;
   const dust = Array.from({ length: 36 }, () => ({
     x: Math.random() * 2 - 1,
     y: Math.random(),
@@ -108,12 +109,11 @@ export function initMobileStage(canvas) {
 
   let last = performance.now();
   function tick(now) {
-    if (!running) return;
+    if (!running || paused) return;
     requestAnimationFrame(tick);
     // Skip a frame on very long stalls to stay smooth
     if (now - last < 12) return;
     last = now;
-    if (document.hidden) return;
 
     px += (tx - px) * 0.06;
     py += (ty - py) * 0.06;
@@ -276,22 +276,63 @@ export function initMobileStage(canvas) {
     }
   }
 
+  function resume() {
+    if (!paused) return;
+    paused = false;
+    last = performance.now();
+    requestAnimationFrame(tick);
+  }
+
+  function pause() {
+    paused = true;
+  }
+
+  function resetIdleTimer() {
+    clearTimeout(idleTimer);
+    if (paused) resume();
+    idleTimer = setTimeout(pause, 2000);
+  }
+
+  // Pause when offscreen
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      resume();
+      resetIdleTimer();
+    } else {
+      pause();
+    }
+  }, { threshold: 0 });
+  observer.observe(canvas);
+
+  // Pause when tab hidden
   function onVis() {
-    if (!document.hidden && running) {
-      last = performance.now();
-      requestAnimationFrame(tick);
+    if (document.hidden) {
+      pause();
+      clearTimeout(idleTimer);
+    } else {
+      resume();
+      resetIdleTimer();
     }
   }
   document.addEventListener('visibilitychange', onVis);
 
+  // Resume on scroll or input
+  ['scroll', 'pointermove', 'touchstart', 'keydown'].forEach(evt => {
+    window.addEventListener(evt, resetIdleTimer, { passive: true });
+  });
+
   resize();
   window.addEventListener('resize', resize, { passive: true });
+  resetIdleTimer();
   requestAnimationFrame(tick);
 
   return {
     setTicket(data) { ticket = data || null; },
     dispose() {
       running = false;
+      paused = true;
+      clearTimeout(idleTimer);
+      observer.disconnect();
       window.removeEventListener('resize', resize);
       document.removeEventListener('visibilitychange', onVis);
     }

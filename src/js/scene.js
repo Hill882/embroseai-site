@@ -208,6 +208,8 @@ export function createFloor(canvas) {
 
   const clock = new THREE.Clock();
   let running = true;
+  let paused = false;
+  let idleTimer = null;
   let approvedGlow = false;
 
   function resize() {
@@ -219,7 +221,7 @@ export function createFloor(canvas) {
   }
 
   function tick() {
-    if (!running) return;
+    if (!running || paused) return;
     requestAnimationFrame(tick);
     const t = clock.getElapsedTime();
     dust.rotation.y = t * 0.01;
@@ -251,7 +253,52 @@ export function createFloor(canvas) {
     renderer.render(scene, camera);
   }
 
+  function resume() {
+    if (!paused) return;
+    paused = false;
+    clock.start();
+    tick();
+  }
+
+  function pause() {
+    paused = true;
+  }
+
+  function resetIdleTimer() {
+    clearTimeout(idleTimer);
+    if (paused) resume();
+    idleTimer = setTimeout(pause, 2000);
+  }
+
+  // Pause when offscreen
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      resume();
+      resetIdleTimer();
+    } else {
+      pause();
+    }
+  }, { threshold: 0 });
+  observer.observe(canvas);
+
+  // Pause when tab hidden
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      pause();
+      clearTimeout(idleTimer);
+    } else {
+      resume();
+      resetIdleTimer();
+    }
+  });
+
+  // Resume on scroll or input
+  ['scroll', 'pointermove', 'touchstart', 'keydown'].forEach(evt => {
+    window.addEventListener(evt, resetIdleTimer, { passive: true });
+  });
+
   resize();
+  resetIdleTimer();
   tick();
 
   return {
@@ -285,6 +332,9 @@ export function createFloor(canvas) {
     resize,
     dispose() {
       running = false;
+      paused = true;
+      clearTimeout(idleTimer);
+      observer.disconnect();
       renderer.dispose();
     }
   };
