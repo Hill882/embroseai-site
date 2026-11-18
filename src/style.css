@@ -64,6 +64,7 @@ section{padding:88px 0;position:relative}
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 0 14vh}
 .hero-grid{position:relative}
 .eyebrow{display:inline-block;margin:0 0 18px;padding:6px 12px;border:1px solid var(--line);border-radius:99px;font-size:.82rem;color:var(--muted);letter-spacing:.04em}
+.h1-eyebrow{display:block}
 .display{margin:0 0 22px;font-weight:800;font-size:clamp(2.5rem,7.2vw,5.5rem);line-height:.92;letter-spacing:-.05em}
 .display .line{display:block}
 .display .word{display:inline-block;white-space:nowrap;overflow:hidden}
