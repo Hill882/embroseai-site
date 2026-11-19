@@ -47,6 +47,7 @@ if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').m
       "@type": "ProfessionalService",
       "@id": "{{DOMAIN}}/#business",
       "name": "{{BUSINESS_NAME}}",
+      "legalName": "{{LEGAL_NAME}}",
       "alternateName": "Embrose",
       "slogan": "AI, set up for your business",
       "url": "{{DOMAIN}}/",
@@ -529,12 +530,7 @@ Thanks!</p></div>
 </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <p><strong>{{BUSINESS_NAME}}</strong> · Franklin, Indiana · <a href="tel:{{PHONE_TEL}}">{{PHONE}}</a><!--IF:SHOW_EMAIL--> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a><!--ENDIF:SHOW_EMAIL--></p>
-    <p class="fine">© 2026 {{BUSINESS_NAME}}</p>
-  </div>
-</footer>
+{{SITE_FOOTER}}
 <script id="cfg" type="application/json">{"phone":"{{PHONE}}","tel":"{{PHONE_TEL}}","audit":"{{PRICE_AUDIT}}","sprint":"{{PRICE_SPRINT}}","process":"{{PRICE_PROCESS}}","retainer":"{{PRICE_RETAINER}}","hours":"{{RETAINER_HOURS}}","pilot":"{{PRICE_PILOT}}"}</script>
 <script id="auto" type="application/json">{{AUTO_JSON}}</script>
 <script type="module" src="/assets/main.js"></script>
