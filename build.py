@@ -28,28 +28,10 @@ def form_urls(endpoint):
 
 c['FORM_ACTION'], c['FORM_AJAX'] = form_urls(c.get('FORM_ENDPOINT'))
 
-LOGO = ('<a class="logo" href="/" aria-label="{{BUSINESS_NAME}} home"><svg aria-hidden="true" viewBox="0 0 32 32" width="28" height="28">'
-        '<rect width="32" height="32" rx="8" fill="#0b5fff"/><path d="M10 9h12v3h-8.5v2.5H21v3h-7.5V20H22v3H10z" fill="#fff"/>'
-        '<circle cx="25" cy="22" r="2.2" fill="#ffb347"/></svg><span>Embrose<b> AI</b></span></a>')
-c['SITE_HEADER'] = ('<header class="top"><div class="wrap bar">' + LOGO +
-    '<nav aria-label="Main"><a href="/ai-audit/">AI Audit</a><a href="/ai-crew/">The Crew</a>'
-    '<a href="/private-local-ai/">Private AI</a><a href="/pricing/">Pricing</a>'
-    '<a href="/areas-served/">Areas</a><a href="/faq/">FAQ</a></nav>'
-    '<a class="btn btn-ghost btn-sm hide-md" href="tel:{{PHONE_TEL}}">{{PHONE}}</a>'
-    '<a class="btn btn-sm" href="{{BOOKING_URL}}" rel="noopener">Book<span class="hide-sm"> a free</span> intro call</a>'
-    '</div></header>')
-c['SITE_FOOTER'] = ('<footer class="foot"><div class="wrap">'
-    '<div class="foot-nav">'
-    '<div><p class="foot-h">Services</p><ul><li><a href="/ai-audit/">AI Audit</a></li><li><a href="/ai-crew/">The Crew: AI bots for back-office work</a></li>'
-    '<li><a href="/private-local-ai/">Private local AI</a></li><li><a href="/pricing/">Pricing</a></li></ul></div>'
-    '<div><p class="foot-h">Industries</p><ul><li><a href="/industries/real-estate-teams/">AI for real estate teams</a></li>'
-    '<li><a href="/industries/field-and-home-services/">AI for field and home-services companies</a></li></ul></div>'
-    '<div><p class="foot-h">Embrose AI</p><ul><li><a href="/">Home</a></li><li><a href="/areas-served/">Areas served</a></li>'
-    '<li><a href="/faq/">FAQ</a></li><li><a href="{{BOOKING_URL}}" rel="noopener">Book a free 30-minute intro call</a></li></ul></div>'
-    '</div>'
-    '<p><strong>{{BUSINESS_NAME}}</strong> · Franklin, Indiana · <a href="tel:{{PHONE_TEL}}">{{PHONE}}</a><!--IF:SHOW_EMAIL--> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a><!--ENDIF:SHOW_EMAIL--></p>'
-    '<p class="fine">© 2026 {{BUSINESS_NAME}}</p>'
-    '</div></footer>')
+import pages
+c['SITE_HEADER'], c['SITE_FOOTER'] = pages.site_chrome(c)
+if not str(c.get('LEGAL_UPDATED', '')).strip() or '[' in str(c.get('LEGAL_UPDATED', '')):
+    print('NOTE: LEGAL_UPDATED in config.json is a placeholder; set it to the go-live date before publishing.')
 
 
 def render(t):
@@ -91,7 +73,6 @@ for f in src.iterdir():
     else:
         shutil.copy(f, out / f.name)
 
-import pages
 for path, title, desc in pages.build(out, c, render):
     print(f'{path}: title {len(title)} chars, description {len(desc)} chars')
 

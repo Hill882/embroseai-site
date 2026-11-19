@@ -430,3 +430,4 @@ body.inner{background:radial-gradient(90% 60% at 80% -10%,rgba(11,95,255,.22),tr
 .foot-nav a:hover{text-decoration:underline}
 nav.crumbs{display:block;margin:0}
 nav.related{display:flex;margin:22px 0 0}
+.prose .updated{font-size:.88rem;color:var(--muted);margin:22px 0 0}

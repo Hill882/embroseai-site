@@ -36,4 +36,12 @@
     <loc>{{DOMAIN}}/faq/</loc>
     <lastmod>{{LASTMOD}}</lastmod>
   </url>
+  <url>
+    <loc>{{DOMAIN}}/privacy/</loc>
+    <lastmod>{{LASTMOD}}</lastmod>
+  </url>
+  <url>
+    <loc>{{DOMAIN}}/terms/</loc>
+    <lastmod>{{LASTMOD}}</lastmod>
+  </url>
 </urlset>

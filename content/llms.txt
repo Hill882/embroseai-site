@@ -5,6 +5,7 @@
 Key facts:
 
 - Business name: Embrose AI
+- Legal name: Embrose AI is operated by {{LEGAL_NAME}}, an Indiana limited liability company
 - Base: Franklin, Indiana (service-area business, no public storefront)
 - In person: Franklin, Greenwood, Indianapolis (especially the south side), all of Johnson County, and within about an hour of Franklin. Remote anywhere.
 - Phone (call or text): (317) 777-1512
@@ -45,3 +46,5 @@ Key facts:
 ## Optional
 
 - [Sitemap](https://embroseai.com/sitemap.xml)
+- [Privacy policy](https://embroseai.com/privacy/)
+- [Terms of use](https://embroseai.com/terms/)

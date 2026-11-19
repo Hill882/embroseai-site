@@ -26,7 +26,7 @@ PAGES = {
     'field-and-home-services': '/industries/field-and-home-services/',
     'areas-served': '/areas-served/',
 }
-ALL_PATHS = list(PAGES.values()) + ['/faq/']
+ALL_PATHS = list(PAGES.values()) + ['/faq/', '/privacy/', '/terms/']
 
 AREA = [
     {"@type": "City", "name": "Franklin, Indiana"},
@@ -34,6 +34,60 @@ AREA = [
     {"@type": "City", "name": "Indianapolis, Indiana"},
     {"@type": "AdministrativeArea", "name": "Johnson County, Indiana"},
 ]
+
+LEGAL = {'privacy': '/privacy/', 'terms': '/terms/'}
+
+LOGO = ('<a class="logo" href="/" aria-label="{{BUSINESS_NAME}} home"><svg aria-hidden="true" viewBox="0 0 32 32" width="28" height="28">'
+        '<rect width="32" height="32" rx="8" fill="#0b5fff"/><path d="M10 9h12v3h-8.5v2.5H21v3h-7.5V20H22v3H10z" fill="#fff"/>'
+        '<circle cx="25" cy="22" r="2.2" fill="#ffb347"/></svg><span>Embrose<b> AI</b></span></a>')
+
+
+def has_page(slug):
+    return (ROOT / 'content' / 'pages' / f'{slug}.md').exists()
+
+
+def has_faq():
+    return (ROOT / 'content' / 'faq.md').exists()
+
+
+def site_chrome(c):
+    """Shared header (inner pages) and footer (every page). Only links to pages that exist."""
+    def li(slug, label):
+        return f'<li><a href="{PAGES[slug]}">{label}</a></li>' if has_page(slug) else ''
+    nav = ''.join(f'<a href="{PAGES[s]}">{t}</a>' for s, t in
+                  [('ai-audit', 'AI Audit'), ('ai-crew', 'The Crew'), ('private-local-ai', 'Private AI'),
+                   ('pricing', 'Pricing'), ('areas-served', 'Areas')] if has_page(s))
+    if has_faq():
+        nav += '<a href="/faq/">FAQ</a>'
+    if not nav:
+        nav = '<a href="/#services">Services</a><a href="/#bot-team">Crew</a><a href="/#about">About</a><a href="/#faq">FAQ</a>'
+    header = ('<header class="top"><div class="wrap bar">' + LOGO + f'<nav aria-label="Main">{nav}</nav>'
+              '<!--IF:BOOKING_URL--><a class="btn btn-ghost btn-sm hide-md" href="tel:{{PHONE_TEL}}">{{PHONE}}</a>'
+              '<a class="btn btn-sm" href="{{BOOKING_URL}}" rel="noopener">Book<span class="hide-sm"> a free</span> intro call</a><!--ENDIF:BOOKING_URL-->'
+              '<!--IF:NO_BOOKING--><a class="btn btn-sm" href="tel:{{PHONE_TEL}}"><span class="hide-sm">Call or text </span>{{PHONE}}</a><!--ENDIF:NO_BOOKING-->'
+              '</div></header>')
+    c['NO_BOOKING'] = not c.get('BOOKING_URL')
+    services = (li('ai-audit', 'AI Audit') + li('ai-crew', 'The Crew: AI bots for back-office work') +
+                li('private-local-ai', 'Private local AI') + li('pricing', 'Pricing'))
+    industries = (li('real-estate-teams', 'AI for real estate teams') +
+                  li('field-and-home-services', 'AI for field and home-services companies'))
+    company = ('<li><a href="/">Home</a></li>' + li('areas-served', 'Areas served') +
+               ('<li><a href="/faq/">FAQ</a></li>' if has_faq() else '') +
+               '<!--IF:BOOKING_URL--><li><a href="{{BOOKING_URL}}" rel="noopener">Book a free 30-minute intro call</a></li><!--ENDIF:BOOKING_URL-->')
+    cols = ''
+    if services:
+        cols += f'<div><p class="foot-h">Services</p><ul>{services}</ul></div>'
+    if industries:
+        cols += f'<div><p class="foot-h">Industries</p><ul>{industries}</ul></div>'
+    footer = '<footer class="foot"><div class="wrap">'
+    if cols:
+        footer += f'<div class="foot-nav">{cols}<div><p class="foot-h">Embrose AI</p><ul>{company}</ul></div></div>'
+    footer += ('<p><strong>{{BUSINESS_NAME}}</strong> · Franklin, Indiana · <a href="tel:{{PHONE_TEL}}">{{PHONE}}</a>'
+               '<!--IF:SHOW_EMAIL--> · <a href="mailto:{{EMAIL}}">{{EMAIL}}</a><!--ENDIF:SHOW_EMAIL--></p>'
+               '<p class="fine foot-legal">© 2026 {{LEGAL_NAME}} · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>'
+               '</div></footer>')
+    return header, footer
+
 
 NOTE_RE = re.compile(r'\s*\*\((?:[^()]|\([^()]*\))*\)\*')
 
@@ -75,8 +129,10 @@ def inline_basic(s):
     return s
 
 
-def parse(path):
+def parse(path, render=None):
     text = path.read_text()
+    if render:
+        text = render(text)
     head, _, rest = text.partition('\n---\n')
     meta = dict(re.findall(r'^\*\*([^*]+):\*\*\s*(.+)$', head, flags=re.M))
     body = rest.split('\n---\n')[0]  # later '---' = editor's note
@@ -262,13 +318,13 @@ def fill(tpl, **kw):
     return tpl
 
 
-def page_body(sections, c, faq_links=None):
+def page_body(sections, c, faq_links=None, legal=False):
     html_out, faq = '', []
     for i, sec in enumerate(sections):
         h2 = sec['h2']
         sid = re.sub(r'[^a-z0-9]+', '-', h2.lower()).strip('-')
         is_last = i == len(sections) - 1
-        cls = 'answer' if h2 == 'The short answer' else ('cta-block' if is_last else '')
+        cls = 'answer' if h2 == 'The short answer' else ('cta-block' if is_last and not legal else '')
         inner = ''
         if 'FAQs' in h2:
             pairs = faq_pairs(sec['lines'])
@@ -291,6 +347,8 @@ def build(out, c, render):
     tpl = render((ROOT / 'templates' / 'page.html').read_text())
     report = []
     for slug, path in PAGES.items():
+        if not has_page(slug):
+            continue
         meta, sections = parse(ROOT / 'content' / 'pages' / f'{slug}.md')
         url = c['DOMAIN'] + path
         body, faq = page_body(sections, c)
@@ -311,6 +369,25 @@ def build(out, c, render):
         dest.write_text(doc)
         report.append((path, meta['Title tag'], meta['Meta description']))
 
+    # legal pages: WebPage + BreadcrumbList, no FAQ. Rendered through render() first so
+    # {{LEGAL_NAME}}, {{LEGAL_UPDATED}} and IF:BOOKING_URL blocks resolve from config.json.
+    for slug, path in LEGAL.items():
+        meta, sections = parse(ROOT / 'content' / 'legal' / f'{slug}.md', render)
+        url = c['DOMAIN'] + path
+        body, _ = page_body(sections, c, legal=True)
+        updated = f'<p class="updated">Last updated: {esc(c.get("LEGAL_UPDATED", ""))}</p>'
+        vis, bl = crumbs(c, [('Home', '/'), (meta['Breadcrumb'].split('>')[-1].strip(), path)], url)
+        graph = [{"@type": "WebPage", "@id": url + "#webpage", "url": url, "name": meta['H1'],
+                  "isPartOf": {"@id": c['DOMAIN'] + "/#website"}, "publisher": {"@id": c['DOMAIN'] + "/#business"}}, bl]
+        doc = fill(tpl, TITLE=esc(meta['Title tag']), DESC=esc(meta['Meta description']), URL=url,
+                   H1=inline(meta['H1'], c), CRUMBS=vis, BODY=updated + body, JSONLD=ld_json(graph))
+        dest = out / slug / 'index.html'
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(doc)
+        report.append((path, meta['Title tag'], meta['Meta description']))
+
+    if not has_faq():
+        return report
     # /faq/: 12 new Q&As + the 9 home FAQs (taken from the rendered home page so text matches)
     faq_md = (ROOT / 'content' / 'faq.md').read_text()
     fm = dict(re.findall(r'^- (Title|Description|H1): (.+?)(?: \(\d+ chars\))?$', faq_md, flags=re.M))
@@ -337,10 +414,12 @@ def build(out, c, render):
     (out / 'faq' / 'index.html').write_text(doc)
     report.append(('/faq/', fm['Title'], fm['Description']))
 
+    if not (ROOT / 'content' / 'llms.txt').exists():
+        return report
     # llms.txt: drop [PLANNED] tags for pages that exist; drop lines for pages that don't
     built = {c['DOMAIN'] + p for p in ALL_PATHS}
     lines = []
-    for ln in (ROOT / 'content' / 'llms.txt').read_text().split('\n'):
+    for ln in render((ROOT / 'content' / 'llms.txt').read_text()).split('\n'):
         if '[PLANNED]' in ln:
             m = re.search(r'\]\((https://[^)]+)\)', ln)
             if not (m and m.group(1) in built):
