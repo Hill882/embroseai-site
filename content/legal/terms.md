@@ -25,7 +25,7 @@ We work hard to set up tools that save your team time, but we can't promise any 
 
 ## Links to other services
 
-The site links to services run by other companies, such as Google Calendar for booking calls and FormSubmit for the contact form. We don't control those services and aren't responsible for their content or how they work. Their own terms and privacy policies apply.
+The site links to services run by other companies, such as <!--IF:BOOKING_URL-->Google Calendar for booking calls and <!--ENDIF:BOOKING_URL-->FormSubmit for the contact form. We don't control those services and aren't responsible for their content or how they work. Their own terms and privacy policies apply.
 
 ## Using the site fairly
 
