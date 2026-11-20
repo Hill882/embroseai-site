@@ -13,7 +13,7 @@ These terms cover your use of the website embroseai.com, which is run by {{LEGAL
 
 ## The site is for information only
 
-The site describes our services in general terms. Nothing on it is legal, tax, accounting or financial advice, and reading it or contacting us doesn't make you a client. Examples on the site, including the live demo and the automation map, use sample data and illustrative numbers, not real client results.
+The site describes our services in general terms. Nothing on it is legal, tax or financial advice, and reading it or contacting us doesn't make you a client. Examples on the site, including the live demo and the automation map, use sample data and illustrative numbers, not real client results.
 
 ## Prices
 
