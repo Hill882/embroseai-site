@@ -63,7 +63,7 @@ def site_chrome(c):
         nav = '<a href="/#services">Services</a><a href="/#bot-team">Crew</a><a href="/#about">About</a><a href="/#faq">FAQ</a>'
     header = ('<header class="top"><div class="wrap bar">' + LOGO + f'<nav aria-label="Main">{nav}</nav>'
               '<!--IF:BOOKING_URL--><a class="btn btn-ghost btn-sm hide-md" href="tel:{{PHONE_TEL}}">{{PHONE}}</a>'
-              '<a class="btn btn-sm" href="{{BOOKING_URL}}" rel="noopener">Book<span class="hide-sm"> a free</span> intro call</a><!--ENDIF:BOOKING_URL-->'
+              '<a class="btn btn-sm" href="{{BOOKING_URL}}" target="_blank" rel="noopener">Book<span class="hide-sm"> a free</span> intro call</a><!--ENDIF:BOOKING_URL-->'
               '<!--IF:NO_BOOKING--><a class="btn btn-sm" href="tel:{{PHONE_TEL}}"><span class="hide-sm">Call or text </span>{{PHONE}}</a><!--ENDIF:NO_BOOKING-->'
               '</div></header>')
     c['NO_BOOKING'] = not c.get('BOOKING_URL')
